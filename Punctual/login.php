@@ -14,6 +14,7 @@ require_once "config.php";
 // Variables to be used
 $username = "";
 $password = "";
+$useradmin = "";
 $usercheck = false;
 $passcheck = false;
  
@@ -40,7 +41,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST") {
     
     // If fields pass both checks, then validate using sql statements to pull data from database table. Store the values and redirect the user. Else statements focus on error handling at different stages
     if($usercheck && $passcheck) {
-        $mysql = "SELECT id, username, password FROM users WHERE username = ?";
+        $mysql = "SELECT id, username, password, admin FROM users WHERE username = ?";
         
         if($stmt = mysqli_prepare($connection, $mysql)) {
             mysqli_stmt_bind_param($stmt, "s", $user_parameter);
@@ -50,7 +51,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST") {
                 mysqli_stmt_store_result($stmt);
                 
                 if(mysqli_stmt_num_rows($stmt) == 1) {                    
-                    mysqli_stmt_bind_result($stmt, $id, $username, $password2);
+                    mysqli_stmt_bind_result($stmt, $id, $username, $password2, $useradmin);
                     
                     if(mysqli_stmt_fetch($stmt)) {
                         if(password_verify($password, $password2)){
@@ -58,10 +59,14 @@ if($_SERVER["REQUEST_METHOD"] == "POST") {
                             session_start();
                             $_SESSION["loggedin"] = true;
                             $_SESSION["id"] = $id;
-                            $_SESSION["username"] = $username;                            
+                            $_SESSION["username"] = $username;
                             
-
-                            header("location: main.php");
+                            if ((strcmp($useradmin,"0")) == 0) {
+                            	header("location: main.php");
+                            }
+                            else if ((strcmp($useradmin,"1")) == 0) {
+                            	header("location: main_admin.php");
+                            }
                         }
                         else {
                             phpAlert("The password is incorrect");
