@@ -12,9 +12,11 @@ require_once "config.php";
 $username = "";
 $password = "";
 $password2 = "";
+$admin = "";
 $usercheck = false;
 $passcheck = false;
 $passcheck2 = false;
+$admincheck = false;
  
 // When form is submitted, do this
 if($_SERVER["REQUEST_METHOD"] == "POST") {
@@ -72,14 +74,28 @@ if($_SERVER["REQUEST_METHOD"] == "POST") {
         }
     }
     
+    if(empty(trim($_POST['admin']))) {
+		phpAlert("Choose a value for 'Admin Role'");
+    }
+    else {
+        $admincheck = true;
+		if ((strcmp($_POST['admin'], "Yes")) == 0) {
+			$admin = "1";
+		}
+		else if ((strcmp($_POST['admin'], "No")) == 0) {
+			$admin = "0";
+		}
+    }
+    
     // Making sure all fields pass all the checks, if they do then insert data into the database table and redirect the user
-    if($usercheck && $passcheck && $passcheck2){
-        $sql = "INSERT INTO users (username, password) VALUES (?, ?)";
+    if($usercheck && $passcheck && $passcheck2 && $admincheck){
+        $sql = "INSERT INTO users (username, password, admin) VALUES (?, ?, ?)";
          
         if($stmt = mysqli_prepare($connection, $sql)) {
-            mysqli_stmt_bind_param($stmt, "ss", $user_parameter, $pass_parameter);
+            mysqli_stmt_bind_param($stmt, "ssi", $user_parameter, $pass_parameter, $admin_parameter);
             $user_parameter = $username;
             $pass_parameter = password_hash($password, PASSWORD_DEFAULT);
+            $admin_parameter = $admin;
             
             if(mysqli_stmt_execute($stmt)) {
                 header("location: login.php");
@@ -131,6 +147,14 @@ if($_SERVER["REQUEST_METHOD"] == "POST") {
 		            <input type="password" name="password2" class="form-control">
 		            <span class="help-block"></span>
 		        </div>
+		        <br>
+		        <div>
+		        	<label>Admin Role</label>
+		        	<br>
+		        	<input type="radio" id="adminyes" name="admin" value="Yes">
+					<label for="Yes">Yes</label><br>
+					<input type="radio" id="adminno" name="admin" value="No">
+					<label for="No">No</label><br>
 		        <br>
 		        <div class="form-group">
 		            <input type="submit" class="btn btn-primary" value="Submit">
