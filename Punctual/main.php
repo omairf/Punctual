@@ -32,14 +32,7 @@ if(!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true){
 				</div>
 				<div>
 					<a href="join.php" class="btn btn-primary">Join!</a>
-				</div>
-				<br>
-				<div>
-					<label>Create a Room</label>
-				</div>
-				<div>
-					<a href="create.php" class="btn btn-primary">Create!</a>
-				</div>			
+				</div>		
 				<br>
 				<br>
 				<div>
