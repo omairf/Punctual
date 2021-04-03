@@ -1,5 +1,5 @@
 <?php
-// Start session
+// Start session 
 session_start();
  
 // Checks if user is logged in, if they aren't then redirect
