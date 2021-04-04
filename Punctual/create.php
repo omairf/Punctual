@@ -62,7 +62,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST") {
             $user_parameter = $roomkey;
             
             if(mysqli_stmt_execute($stmt)) {
-                phpAlert("Room created!");
+                phpAlert("Room initialized!");
             }
             else {
                 phpAlert("Something bad happened :( Try refreshing the page");
@@ -70,6 +70,26 @@ if($_SERVER["REQUEST_METHOD"] == "POST") {
 
             mysqli_stmt_close($stmt);
         }
+
+		// $sql2 = ("CREATE TABLE roomdata (
+		// 	id INT AUTO_INCREMENT PRIMARY KEY,
+		// 	username VARCHAR(30) NOT NULL,
+		// 	checkIN TIMESTAMP,
+		// 	checkOUT TIMESTAMP)");
+         
+        // if($stmt = mysqli_prepare($connection, $sql2)) {
+        //     // mysqli_stmt_bind_param($stmt, "s", $user_parameter);
+        //     // $user_parameter = $roomkey;
+            
+        //     if(mysqli_stmt_execute($stmt)) {
+        //         phpAlert("Room created!");
+        //     }
+        //     else {
+        //         phpAlert("Something bad happened :( Try refreshing the page");
+        //     }
+
+        //     mysqli_stmt_close($stmt);
+        // }
     }
     
     mysqli_close($connection);
