@@ -7,6 +7,7 @@ function phpAlert($msg) {
 // Start session 
 session_start();
  
+$qrurl = "http://api.qrserver.com/v1/create-qr-code/?data=http://localhost/Punctual-main/Punctual-main/Punctual/?roomno=". $_SESSION["adminRoomID"];
 // Checks if user is logged in, if they aren't then redirect
 if(!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true){
     header("location: login.php");
@@ -37,6 +38,48 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
 			header("location: main_admin.php");
 }
 ?>
+
+<script>
+
+	function CopyImageById(Id) 
+	{
+	var imgs = document.createElement('img');
+	imgs.src = document.getElementById(Id).src;
+	
+	//alert ('Create image') ;
+
+	var bodys = document.body ;
+	bodys.appendChild(imgs);
+	//alert ('Image on document')
+	
+	
+	if (document.createRange)  
+	{
+		//alert ('CreateRange work');
+		var myrange = document.createRange();
+		myrange.setStartBefore(imgs);
+		myrange.setEndAfter(imgs);
+		myrange.selectNode(imgs);
+
+	}
+	else
+	{
+		alert ('CreateRange NOT work');
+	}
+	
+	var sel = window.getSelection();
+	sel.addRange(myrange);
+
+	//document.execCommand('copy', false, null);
+	var successful = document.execCommand('copy');
+
+	var msg = successful ? 'successful' : 'unsuccessful';
+	//alert('Copy image command was ' + msg);
+
+	}
+	
+</script>
+
  
  <!DOCTYPE html>
 <html>
@@ -55,6 +98,13 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
 		<div class="wrapper">
 			<h1>You are in Room <?php echo $_SESSION["adminRoomID"] ?>!</h1>
 			<br>
+			<!-- Input qr code here -->
+			<div class = "QRContainer">
+				<img id = "imgQR" src = "<?php echo $qrurl;?>">
+				<br>
+				<button onclick="CopyImageById('imgQR')">Copy QR to Clipboard</button>
+			</div>
+
 			<form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="post">
 				<!-- <div>
 					<label>Enter room number</label>
