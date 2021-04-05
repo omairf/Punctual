@@ -43,6 +43,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST") {
 		            }
 		            else {
 		                $roomkey = trim($_POST["roomkey"]);
+						$_SESSION["adminRoomID"] = $roomkey;
 		                $check1 = true;
 		            }
 		        }
@@ -70,7 +71,8 @@ if($_SERVER["REQUEST_METHOD"] == "POST") {
 
             mysqli_stmt_close($stmt);
         }
-
+		header("location: room_admin.php");
+		
 		// $sql2 = ("CREATE TABLE roomdata (
 		// 	id INT AUTO_INCREMENT PRIMARY KEY,
 		// 	username VARCHAR(30) NOT NULL,

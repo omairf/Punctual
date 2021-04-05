@@ -34,7 +34,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST") {
                        	phpAlert("Joined room!!");
 						mysqli_stmt_close($stmt);
 
-						$sql2 = "INSERT INTO roomdata (id, username, checkIN, roomID) VALUES (?, ?, ?, ?)";
+						$sql2 = "INSERT INTO roomdata (userID, username, checkIN, roomID) VALUES (?, ?, ?, ?)";
 
     					$stmt = $connection->prepare($sql2);
 
@@ -56,33 +56,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST") {
            	else {
                	phpAlert("Something bad happened :( Try refreshing the page");
            	}
-
-           	// mysqli_stmt_close($stmt);
         }
-
-		// $sql2 = "INSERT INTO roomdata (id, username, checkIN, roomID) VALUES (?, ?, ?, ?)";
-    	// $stmt = $connection->prepare($sql2);
-		// $cI = date('Y-m-d H:i:s');
-		// $user_parameter2 = trim($_POST["userroom"]);
-		// $stmt->bind_param("isss", $_SESSION["id"],$_SESSION["username"],$cI, $user_parameter);
-		// $stmt->execute();
-		// $stmt->close();
-
-		// if($stmt = mysqli_prepare($connection, $mysql)) {
-			
-		// 	//mysqli_stmt_bind_param($stmt, "i", $_SESSION["id"]);
-		// 	// mysqli_stmt_bind_param($stmt, "s", $_SESSION["username"]);
-		// 	// mysqli_stmt_bind_param($stmt, "s", $cI);
-		// 	// mysqli_stmt_bind_param($stmt, "s", $user_parameter);
-		
-		// 	if(mysqli_stmt_execute($stmt)) {
-        //         phpAlert("Data Stored!");
-        //     }
-        //     else {
-        //         phpAlert("Something bad happened :( Try refreshing the page");
-        //     }
-		// 	mysqli_stmt_close($stmt);
-	 	// }
     	mysqli_close($connection);
 	}
 }
