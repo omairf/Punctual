@@ -31,7 +31,7 @@ if(!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true){
 					<label>Join a Room</label>
 				</div>
 				<div>
-					<a href="join.php" class="btn btn-primary">Join!</a>
+					<a href="join_admin.php" class="btn btn-primary">Join!</a>
 				</div>
 				<br>
 				<div>

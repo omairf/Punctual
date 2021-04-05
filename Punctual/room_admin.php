@@ -17,37 +17,24 @@ if(!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true){
 require_once "config.php";
 
 // When form is submitted, do this
-if($_SERVER["REQUEST_METHOD"] == "post"){
+if($_SERVER["REQUEST_METHOD"] == "POST"){
             $roomIDnum = $_SESSION["adminRoomID"];
-            $sql2 = "SELECT username, checkIN, checkOUT FROM roomdata WHERE roomID = ?";
-            $arr = array();
-            if($stmt = mysqli_prepare($connection, $sql2)) {
-		        mysqli_stmt_bind_param($stmt, "s", $_SESSION["adminRoomID"]);
-		        
-		        if(mysqli_stmt_execute($stmt)) {
-		            mysqli_stmt_store_result($stmt);
-		            
-		            if(mysqli_stmt_num_rows($stmt) > 0) {
-                        while($row = mysqli_fetch_array($stmt, MYSQLI_ASSOC)){
-                            $arr = $row;
-                        }
-                        $_SESSION['data'] = $arr;
-		            }
-		            else {
-                        echo "Something bad happened :( Try refreshing the page";
+			$sql = "DELETE FROM rooms WHERE roomid = ?";
+         
+			if($stmt = mysqli_prepare($connection, $sql)) {
+				mysqli_stmt_bind_param($stmt, "s", $roomIDnum);
+			
+				if(mysqli_stmt_execute($stmt)) {
+					phpAlert("Room Deleted!");
+				}
+				else {
+					phpAlert("Something bad happened :( Try refreshing the page");
+				}
 
-		            }
-		        }
-		        else {
-		            echo "Something bad happened again :( Try refreshing the page";
-		        }
-		        mysqli_stmt_close($stmt);
-		    }
-            // $stmt = $connection->prepare($sql2);
-
-            // $stmt->bind_param("s", $_SESSION["adminRoomID"]);
-            // $stmt->execute();
-            // $stmt->close();
+				mysqli_stmt_close($stmt);
+			}
+			$_SESSION["adminRoomID"] = null;
+			header("location: main_admin.php");
 }
 ?>
  
@@ -74,27 +61,41 @@ if($_SERVER["REQUEST_METHOD"] == "post"){
 					<input type="number" min="0" name="userroom" class="form-control">
 					<span class="help-block"></span>
 				</div> -->
-                <!-- <div>
-                    <table>
-                    <thead>
-                        <tr><th>Username</th><th>Check In</th><th>Check Out</th></tr>
-                    </thead>
-                    <tbody>
+                <table>
+					<tr>
+					<th>Username</th>
+					<th></th>
+					<th>Duration</th>
 
-                    <?php  
-                    foreach ($_SESSION['data'] as $r) { ?>
-                                <tr><td><?php echo $r['username']; ?></td>   <td><?php echo $r['checkIN']; ?></td>   <td><?php echo $r['checkOUT']; ?></td></tr>
+					</tr>
+					<?php
+					$name = $_SESSION["adminRoomID"];
+					// Check connection
+					if ($connection->connect_error) {
+					die("Connection failed: " . $connection->connect_error);
+					}
+					$sql2 = "SELECT username, checkIN, checkOUT FROM roomdata WHERE roomID = '$name'";
+					$result = $connection->query($sql2);
+					// $result = $connection->prepare($sql2);
+					// $result->bind_param("s", $_SESSION["adminRoomID"]);
+					// $result->execute();
+					if ($result->num_rows > 0) {
+					// output data of each row
+					while($row = $result->fetch_assoc()) {
+						$datetime1 = new DateTime($row["checkIN"]);//start time
+						$datetime2 = new DateTime($row["checkOUT"]);//end time
+						$interval = $datetime1->diff($datetime2);
 
-                    <?php  } ?>
-
-
-
-                    </tbody>
-                    </table>
-                </div> -->
+						echo "<tr><td>" . $row["username"]. "</td><td></td><td>" . $interval->format('%i minutes %s seconds') . "</td></tr>";
+					}
+					echo "</table>";
+					} else { echo "0 results"; }
+					$connection->close();
+					?>
+				</table>
 				<br>
 				<div>
-					<input type="submit" class="btn btn-warning" value="Print Report!">
+					<input type="submit" class="btn btn-warning" value="Leave">
 				</div>
 				<br>
 				<br>

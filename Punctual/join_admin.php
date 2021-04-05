@@ -11,7 +11,7 @@ session_start();
 require_once "config.php";
 
 if($_SESSION["roomID"] != null){
-	header("location: room.php");
+	header("location: room2.php");
 }
 
 // When form is submitted, do this
@@ -50,7 +50,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST") {
 						$stmt->close();
 
 						$_SESSION["roomID"] = $user_parameter;
-						header("location: room.php");
+						header("location: room2.php");
                    	}
                	}
                	else {
@@ -96,7 +96,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST") {
 				<br>
 				<br>
 				<div>
-					<a href="main.php" class="btn btn-primary">Back</a>
+					<a href="main_admin.php" class="btn btn-primary">Back</a>
 				</div>
 			</form>
 		</div>

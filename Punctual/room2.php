@@ -32,7 +32,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST") {
             $stmt->execute();
             $stmt->close();
 			$_SESSION["roomID"] = null;
-            header("location: main.php");
+            header("location: main_admin.php");
 }
 ?>
  
@@ -66,7 +66,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST") {
 				<br>
 				<br>
 				<div>
-					<a href="main.php" class="btn btn-primary">Back</a>
+					<a href="main_admin.php" class="btn btn-primary">Back</a>
 				</div>
 			</form>
 		</div>

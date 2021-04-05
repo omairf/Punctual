@@ -14,6 +14,10 @@ require_once "config.php";
 $check1 = false;
 $roomkey = "";
 
+if($_SESSION["adminRoomID"] != null){
+	header("location: room_admin.php");
+}
+
 // When form is submitted, do this
 if($_SERVER["REQUEST_METHOD"] == "POST") {
 	
@@ -72,26 +76,6 @@ if($_SERVER["REQUEST_METHOD"] == "POST") {
             mysqli_stmt_close($stmt);
         }
 		header("location: room_admin.php");
-		
-		// $sql2 = ("CREATE TABLE roomdata (
-		// 	id INT AUTO_INCREMENT PRIMARY KEY,
-		// 	username VARCHAR(30) NOT NULL,
-		// 	checkIN TIMESTAMP,
-		// 	checkOUT TIMESTAMP)");
-         
-        // if($stmt = mysqli_prepare($connection, $sql2)) {
-        //     // mysqli_stmt_bind_param($stmt, "s", $user_parameter);
-        //     // $user_parameter = $roomkey;
-            
-        //     if(mysqli_stmt_execute($stmt)) {
-        //         phpAlert("Room created!");
-        //     }
-        //     else {
-        //         phpAlert("Something bad happened :( Try refreshing the page");
-        //     }
-
-        //     mysqli_stmt_close($stmt);
-        // }
     }
     
     mysqli_close($connection);
@@ -128,7 +112,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST") {
 				<br>
 				<br>
 				<div>
-					<a href="main.php" class="btn btn-primary">Back</a>
+					<a href="main_admin.php" class="btn btn-primary">Back</a>
 				</div>
 			</form>
 		</div>
