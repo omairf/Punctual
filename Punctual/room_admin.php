@@ -7,7 +7,7 @@ function phpAlert($msg) {
 // Start session 
 session_start();
  
-$qrurl = "http://api.qrserver.com/v1/create-qr-code/?data=http://localhost/Punctual-main/Punctual-main/Punctual/?roomno=". $_SESSION["adminRoomID"];
+$qrurl = "http://api.qrserver.com/v1/create-qr-code/?data=http://ec2-54-173-102-15.compute-1.amazonaws.com/Punctual/Punctual/qrjoin.php/?roomno=". $_SESSION["adminRoomID"];
 // Checks if user is logged in, if they aren't then redirect
 if(!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true){
     header("location: login.php");
@@ -43,36 +43,40 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
 
 	function CopyImageById(Id) 
 	{
-	var imgs = document.createElement('img');
-	imgs.src = document.getElementById(Id).src;
+		var imgs = document.createElement('img');
+		imgs.src = document.getElementById(Id).src;
+		
+		//alert ('Create image') ;
 
-	var bodys = document.body ;
-	
-	if (document.createRange)  
-	{
-		//alert ('CreateRange work');
-		var myrange = document.createRange();
-		myrange.setStartBefore(imgs);
-		myrange.setEndAfter(imgs);
-		myrange.selectNode(imgs);
+		var bodys = document.body ;
+		bodys.appendChild(imgs);
+		//alert ('Image on document')
+		
+		
+		if (document.createRange)  
+		{
+			//alert ('CreateRange work');
+			var myrange = document.createRange();
+			myrange.setStartBefore(imgs);
+			myrange.setEndAfter(imgs);
+			myrange.selectNode(imgs);
+
+		}
+		else
+		{
+			alert ('CreateRange NOT work');
+		}
+		
+		var sel = window.getSelection();
+		sel.addRange(myrange);
+
+		//document.execCommand('copy', false, null);
+		var successful = document.execCommand('copy');
+
+		var msg = successful ? 'successful' : 'unsuccessful';
+		//alert('Copy image command was ' + msg);
 
 	}
-	else
-	{
-		alert ('CreateRange NOT work');
-	}
-	
-	var sel = window.getSelection();
-	sel.addRange(myrange);
-
-	//document.execCommand('copy', false, null);
-	var successful = document.execCommand('copy');
-
-	var msg = successful ? 'successful' : 'unsuccessful';
-	//alert('Copy image command was ' + msg);
-
-	}
-	
 </script>
 
  
