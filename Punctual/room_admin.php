@@ -150,7 +150,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
 				<br>
 				<br>
 				<div>
-					<a href="main.php" class="btn btn-primary">Back</a>
+					<a href="main_admin.php" class="btn btn-primary">Back</a>
 				</div>
             </form>
 		</div>
