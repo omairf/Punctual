@@ -1,12 +1,12 @@
 # Punctual
 
-Description Here
+A cloud based attendance application that...
 
-## Web Link: http://3.92.136.22/
+## Web Link: http://ec2-54-173-102-15.compute-1.amazonaws.com/Punctual/Punctual/login.php
 
 ## Description
 
-This is a polling application built using python and html with flask. It is hosted on an AWS EC2 ubuntu instance. 
+This is a attendance application built using php and html. It is hosted on an AWS EC2 ubuntu instance. 
 The application allows you to create your own polls and store them in the database (which was made with AWS RDS using MySQL). 
 Along with being able to create polls you are able to view polls made by yourself and other and vote in them, which updates the results in the results section. 
 
