@@ -7,7 +7,7 @@ function phpAlert($msg) {
 // Start session 
 session_start();
  
-$qrurl = "http://api.qrserver.com/v1/create-qr-code/?data=http://ec2-54-173-102-15.compute-1.amazonaws.com/Punctual/Punctual/qrjoin.php/?roomno=". $_SESSION["adminRoomID"];
+$qrurl = "http://api.qrserver.com/v1/create-qr-code/?data=http://ec2-54-173-102-15.compute-1.amazonaws.com/Punctual/Punctual/qrjoin.php?roomno=". $_SESSION["adminRoomID"];
 // Checks if user is logged in, if they aren't then redirect
 if(!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true){
     header("location: login.php");
