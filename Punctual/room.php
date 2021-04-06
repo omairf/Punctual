@@ -39,7 +39,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST") {
  <!DOCTYPE html>
 <html>
 	<head>
-		<title>You are in Room #</title>
+		<title>You are in Room <?php echo $_SESSION["roomID"] ?></title>
 		<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
 		<style>
 			.wrapper {
@@ -51,7 +51,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST") {
 	</head>
 	<body>
 		<div class="wrapper">
-			<h1>You are in Room <?php echo $_SESSION["roomID"] ?>!</h1>
+			<h1>You are in Room <?php echo $_SESSION["roomID"] ?></h1>
 			<br>
 			<form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="post">
 				<!-- <div>

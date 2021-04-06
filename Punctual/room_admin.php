@@ -83,7 +83,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
  <!DOCTYPE html>
 <html>
 	<head>
-		<title>You are in Room #</title>
+		<title>You are in Room <?php echo $_SESSION["adminRoomID"] ?></title>
 		<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
 		<style>
 			.wrapper {
@@ -95,11 +95,12 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
 	</head>
 	<body>
 		<div class="wrapper">
-			<h1>You are in Room <?php echo $_SESSION["adminRoomID"] ?>!</h1>
+			<h1>You are in Room <?php echo $_SESSION["adminRoomID"] ?></h1>
 			<br>
 			<!-- Input qr code here -->
 			<div class = "QRContainer">
 				<img id = "imgQR" src = "<?php echo $qrurl;?>">
+				<br>
 				<br>
 				<button onclick="CopyImageById('imgQR')">Copy QR to Clipboard</button>
 			</div>
@@ -110,13 +111,18 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
 					<input type="number" min="0" name="userroom" class="form-control">
 					<span class="help-block"></span>
 				</div> -->
-                <table>
+				<br>
+				<br>
+                <table class="table">
+				<thread>
 					<tr>
-					<th>Username</th>
-					<th></th>
-					<th>Duration</th>
-
+					<th scope="col">Username</th>
+					<th scope="col">Duration</th>
+					<th scope="col">Clock In Time</th>
+					<th scope="col">Clock Out Time</th>
 					</tr>
+				</thread>
+				<tbody>
 					<?php
 					$name = $_SESSION["adminRoomID"];
 					// Check connection
@@ -125,9 +131,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
 					}
 					$sql2 = "SELECT username, checkIN, checkOUT FROM roomdata WHERE roomID = '$name'";
 					$result = $connection->query($sql2);
-					// $result = $connection->prepare($sql2);
-					// $result->bind_param("s", $_SESSION["adminRoomID"]);
-					// $result->execute();
+	
 					if ($result->num_rows > 0) {
 					// output data of each row
 					while($row = $result->fetch_assoc()) {
@@ -135,12 +139,13 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
 						$datetime2 = new DateTime($row["checkOUT"]);//end time
 						$interval = $datetime1->diff($datetime2);
 
-						echo "<tr><td>" . $row["username"]. "</td><td></td><td>" . $interval->format('%i minutes %s seconds') . "</td></tr>";
+						echo "<tr><th scope='row'>" . $row["username"]. "</th><td>" . $interval->format('%i minutes %s seconds') . "</td><td>" . $row["checkIN"] . "</td><td>" . $row["checkOUT"] . "</td></tr>";
 					}
 					echo "</table>";
 					} else { echo "0 results"; }
 					$connection->close();
 					?>
+					</tbody>
 				</table>
 				<br>
 				<div>
