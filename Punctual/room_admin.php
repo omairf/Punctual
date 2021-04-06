@@ -46,13 +46,6 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
 	var imgs = document.createElement('img');
 	imgs.src = document.getElementById(Id).src;
 	
-	//alert ('Create image') ;
-
-	var bodys = document.body ;
-	bodys.appendChild(imgs);
-	//alert ('Image on document')
-	
-	
 	if (document.createRange)  
 	{
 		//alert ('CreateRange work');
