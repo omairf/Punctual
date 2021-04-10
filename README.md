@@ -1,12 +1,18 @@
 # Punctual
 
-A cloud based attendance application that...
+A cloud based attendance application that follows the general functionality of an attendance application, however provides general purpose use for anyone who wishes to use the attendance features provided.  Along with the basic functionality is a QR code implementation, which aims to provide convenience for both admin and non-admin users.
 
 ## Web Link: http://ec2-54-173-102-15.compute-1.amazonaws.com/Punctual/Punctual/login.php
 
+## Group Members
+- Omair Farooqui
+- Siddharth Tripathi
+- Jay Patel
+- Eric Tsim
+
 ## Description
 
-This is a attendance application built using PHP and HTML. It is hosted on an AWS EC2 ubuntu instance. Punctual follows the general functionality of an attendance application, however provides general purpose use for anyone who wishes to use the attendance features provided.  Along with the basic functionality is a QR code implementation, which aims to provide convenience for both admin and non-admin users.
+This is a attendance application built using PHP and HTML. It is hosted on an AWS EC2 ubuntu instance. 
 The application allows admins to create your own rooms for users to join. Once users join rooms their information starts being logged which include the timestamps of the clock in and the duration spent in the room. The clock out timestamp is only generated once the user clicks the leave button in the room. All the logging information and user information is stored on the Amazon RDS MySQL database. The logging information is also available to admin users when they are in their room. 
 
 ## Commands
