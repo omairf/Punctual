@@ -22,5 +22,4 @@ sudo apt install phpmyadmin
 navigate to the default directory on the ec2 instance (use command: cd ..)
 navigate to directory /var/www/html
 sudo git clone https://github.com/omairf/Punctual.git
-
 ```
