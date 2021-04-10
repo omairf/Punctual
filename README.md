@@ -1,56 +1,31 @@
 # Punctual
 
-A cloud based attendance application that...
+A cloud based attendance application that follows the general functionality of an attendance application, however provides general purpose use for anyone who wishes to use the attendance features provided.  Along with the basic functionality is a QR code implementation, which aims to provide convenience for both admin and non-admin users.
 
 ## Web Link: http://ec2-54-173-102-15.compute-1.amazonaws.com/Punctual/Punctual/login.php
 
+## Group Members
+- Omair Farooqui
+- Siddharth Tripathi
+- Jay Patel
+- Eric Tsim
+
 ## Description
 
-This is a attendance application built using php and html. It is hosted on an AWS EC2 ubuntu instance. 
-The application allows you to create your own polls and store them in the database (which was made with AWS RDS using MySQL). 
-Along with being able to create polls you are able to view polls made by yourself and other and vote in them, which updates the results in the results section. 
-
-## Services
-
-- The first service is being able to create your own poll 
-- The second service is being able to vote in any poll
-- The third service is being able to view results for all polls.
+This is a attendance application built using PHP and HTML. It is hosted on an AWS EC2 ubuntu instance. 
+The application allows admins to create your own rooms for users to join. Once users join rooms their information starts being logged which include the timestamps of the clock in and the duration spent in the room. The clock out timestamp is only generated once the user clicks the leave button in the room. All the logging information and user information is stored on the Amazon RDS MySQL database. The logging information is also available to admin users when they are in their room. 
 
 ## Commands
-Commands I used to run webserver on EC2 ubuntu instance:
+Commands used to run webserver on EC2 ubuntu instance:
 ```
-git clone https://github.com/UOITEngineering3/assignment1winter2021-omairf.git
 sudo apt-get update
-sudo apt-get install python3
-sudo apt-get install python3-pip
-sudo pip3 install flask
-sudo pip3 install pymysql
-sudo pip3 install flask_mysqldb
-sudo apt-get install mysql-client
-sudo apt-get install python3-flask
-sudo apt-get install python3-pymysql
-cd assignment1winter2021-omairf
-pip3 install --user -r requirements.txt
-sudo python3 main.py
-```
-
-If you want run EC2 instance in background:
-```
-nohup sudo python3 main.py &
-```
-
-To Create Database:
-```
-CREATE DATABASE poll;
-use poll;
-CREATE TABLE questions(
-    questionID INT NOT NULL,
-    question VARCHAR(1000) NOT NULL,
-    optionA VARCHAR(128) NOT NULL,
-    optionB VARCHAR(128) NOT NULL,
-    votesForA INT(11) DEFAULT NULL,
-    votesForB INT(11) DEFAULT NULL,
-    PRIMARY KEY (questionID)
-    );
-quit;
+sudo apt-get install apache2
+sudo apt-get install php libapache2-mod-php php-mysql php-curl php-gd php-json php-zip php-mbstring
+sudo service apache2 restart
+sudo apt install phpmyadmin
+    select apache by pressing space bar, tab, and then enter
+    next navigate to the cancel button by using tab and once hovering over cancel press enter to prevent setting up a mysql
+navigate to the default directory on the ec2 instance (use command: cd ..)
+navigate to directory /var/www/html
+sudo git clone https://github.com/omairf/Punctual.git
 ```
