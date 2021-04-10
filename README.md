@@ -2,7 +2,7 @@
 
 A cloud based attendance application that follows the general functionality of an attendance application, however provides general purpose use for anyone who wishes to use the attendance features provided.  Along with the basic functionality is a QR code implementation, which aims to provide convenience for both admin and non-admin users.
 
-## Web Link: http://ec2-54-173-102-15.compute-1.amazonaws.com/Punctual/Punctual/login.php
+## Web Link: http://ec2-54-173-102-15.compute-1.amazonaws.com/Punctual/Punctual/home.php
 
 ## Group Members
 - Omair Farooqui
